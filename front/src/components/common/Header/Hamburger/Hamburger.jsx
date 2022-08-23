@@ -17,14 +17,14 @@ const Hamburger = () => {
   return (
     <div className={styles.wrapper}>
         <button type="button" onClick={() => setShow(!show)}>
-            <img src={show ? hamburgerCloseImage : hamburgerImage} alt=""/>
+            <img src={show ? hamburgerCloseImage : hamburgerImage} alt="" height='24px'/>
         </button>
 
         <nav className={`${styles.menu} ${show ? styles.show : ''}`}>
             <ul>
               {menu.map((item, idx) => (
                 <li key={`_menu_${idx}`}> 
-                    <NavLink to={item.title}>{item.title}</NavLink>
+                    <NavLink to={item.link}>{item.title}</NavLink>
                 </li>
             ))}
                 <li>

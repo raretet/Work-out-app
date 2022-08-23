@@ -10,7 +10,9 @@ const Home = () => {
 
     return (
         <Layout height='100%' bgImage={bgImage}>
-            <Button text='New' type='main' callback={() => {}}/>
+            <NavLink to='/new-workout'>
+                <Button text='New' type='main' callback={() => {}}/>
+            </NavLink>
             <h1 className={styles.heading}>EXERCISES FOR THE SHOULDERS</h1>
             <Counters/>
         </Layout>
