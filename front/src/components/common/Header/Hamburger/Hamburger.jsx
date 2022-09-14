@@ -6,21 +6,26 @@ import hamburgerImage from '../../../../images/header/hamburger.svg'
 import hamburgerCloseImage from '../../../../images/header/hamburger-close.svg'
 
 import styles from './Hamburger.module.scss'
+import { useAuth } from '../../../../hooks/useAuth'
+import { useOutsideAlerter } from '../../../../hooks/useOutsideAlerter'
 
 const Hamburger = () => {
-  const [show, setShow] = React.useState(false)
+  const { setIsAuth } = useAuth()
+  const { ref, isComponentVisible, setIsComponentVisible } = useOutsideAlerter(false)
 
   const handleLogout = () => {
-    console.log('logout')
+    localStorage.removeItem('token')
+    setIsAuth(true)
+    setIsComponentVisible(false)
   }
 
   return (
-    <div className={styles.wrapper}>
-        <button type="button" onClick={() => setShow(!show)}>
-            <img src={show ? hamburgerCloseImage : hamburgerImage} alt="" height='24px'/>
+    <div className={styles.wrapper} ref={ref}>
+        <button type="button" onClick={() => setIsComponentVisible(!isComponentVisible)}>
+            <img src={isComponentVisible ? hamburgerCloseImage : hamburgerImage} alt="" height='24px'/>
         </button>
 
-        <nav className={`${styles.menu} ${show ? styles.show : ''}`}>
+        <nav className={`${styles.menu} ${isComponentVisible ? styles.show : ''}`}>
             <ul>
               {menu.map((item, idx) => (
                 <li key={`_menu_${idx}`}> 

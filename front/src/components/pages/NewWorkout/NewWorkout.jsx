@@ -6,7 +6,6 @@ import Layout from '../../common/Layout'
 import Field from '../../UI/Field/Field'
 import Button from '../../UI/Button/Button'
 
-import styles from './NewWorkout.module.scss'
 import bgImage from '../../../images/new-workout-bg.jpg'
 import { NavLink } from 'react-router-dom'
 
@@ -22,7 +21,7 @@ const NewWorkout = () => {
   return (
     <>
       <Layout bgImage={bgImage} heading={'Create new workout'}/>
-        <div className={styles.wrapper}>
+        <div className='wrapperInnerPage'>
           <form onSubmit={handleSubmit}>
            <Field placeholder='Enter name' value={name} onChange={e => setName(e.target.value)}/>
            <NavLink style={{textDecoration: 'none', textAlign: 'right', display: 'block', width: '100%', marginBottom: '.5rem', color: '#511734'}}  to='/new-exercise'>Add new exercise</NavLink>
