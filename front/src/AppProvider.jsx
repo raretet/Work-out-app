@@ -3,7 +3,7 @@ import { AuthContext } from './contexts/AuthContext';
 import Ways from './Ways';
 
 const AppRoutes = () => {
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(!!localStorage.getItem('token'))
 
   return (
     <AuthContext.Provider value={{isAuth, setIsAuth}}>

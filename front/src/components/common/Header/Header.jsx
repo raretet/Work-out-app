@@ -20,7 +20,7 @@ const Header = () => {
           {location.pathname !== '/' ? (<button type="button" onClick={() => navigate(-1)}>
                 <img src={arrowImage} alt="back"/>
             </button>) : 
-            (<button type="button" onClick={() => navigate(isAuth ? '/profile' : '/auth')}>
+            (<button type="button" onClick={() => navigate(isAuth ? '/auth' : '/profile')}>
                 <img src={isAuth ? userImage : authImage} height='40' alt=""/>
             </button>
             )}

@@ -22,11 +22,8 @@ const Auth = () => {
   const [password, setPassword] = React.useState('');
   const [type, setType] = React.useState('auth'); //auth, reg
 
-  const {mutate: register, isLoading, error,} = useMutation('Registration', () => $api({url: '/users', 
-  type: 'POST', body: {email, password}, auth: false
-}), {
-  onSuccess(data){
-    localStorage.setItem('token', data.token)
+  const successLogin = (token) => {
+    localStorage.setItem('token', token)
     setIsAuth()
 
     setPassword('')
@@ -34,12 +31,27 @@ const Auth = () => {
 
     navigate('/', {replace: true})
   }
+
+  const {mutate: register, isLoading, error,} = useMutation('Registration', () => $api({url: '/users', 
+  type: 'POST', body: {email, password}, auth: false
+}), {
+  onSuccess(data){
+    successLogin(data.token)
+  }
+})
+
+  const {mutate: auth, isLoading: isLoadingAuth, error: errorAuth,} = useMutation('Auth', () => $api({url: '/users/login', 
+  type: 'POST', body: {email, password}, auth: false
+}), {
+  onSuccess(data){
+    successLogin(data.token)
+  }
 })
 
   const handleSubmit = (e) => { 
     e.preventDefault()
     if (type === 'auth') {
-      console.log('Auth')
+      auth()
     } else {
       register()
     } 
@@ -50,7 +62,8 @@ const Auth = () => {
       <Layout bgImage={bgImage} heading={'Auth || Register'}/>
         <div className='wrapperInnerPage'>
           {error && <Alert type='error' text={error}/>}
-          {isLoading && <Loader/>}
+          {errorAuth && <Alert type='error' text={error}/>}
+          {(isLoading || isLoadingAuth) && <Loader/>}
           <form onSubmit={handleSubmit}>
            <Field type='email' placeholder='Enter email' value={email} onChange={e => setEmail(e.target.value)}/>
            <Field placeholder='Enter password' value={password} onChange={e => setPassword(e.target.value)}/>
